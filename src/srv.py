@@ -4,7 +4,6 @@ from http.server import SimpleHTTPRequestHandler
 from pathlib import Path
 
 PROJECT_DIR = Path(__file__).parent.parent.resolve()
-SRC =
 
 PORT = int(os.getenv("PORT", 8000))
 print(f"PORT={PORT}")
