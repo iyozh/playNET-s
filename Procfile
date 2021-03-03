@@ -1,1 +1,1 @@
-web: python src/srv.py
+web: flask run
