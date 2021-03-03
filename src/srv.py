@@ -1,52 +1,35 @@
-import os
-import socketserver
-from http.server import SimpleHTTPRequestHandler
-from pathlib import Path
+from flask import Flask, url_for, render_template, request
 
-PROJECT_DIR = Path(__file__).parent.parent.resolve()
+from flask_mail import Mail, Message
 
-PORT = int(os.getenv("PORT", 8000))
-print(f"PORT={PORT}")
+app = Flask(__name__)
 
+app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'spacexxx47@gmail.com'  # введите свой адрес электронной почты здесь
+app.config['MAIL_DEFAULT_SENDER'] = 'spacexxx47@gmail.com'  # и здесь
+app.config['MAIL_PASSWORD'] = 'EADSbMFFD6GwBdM'  # введите пароль
 
-class MyHandler(SimpleHTTPRequestHandler):
+mail = Mail(app)
 
-    def do_GET(self):
-        path = self.extract_path()
-        urls = {
-            '': self.get_form
-        }
-        handler = urls[path]
-        handler()
-#
-    def extract_path(self):
-        path = self.path.split("/")[0]
-        print(path)
-        return path
-
-    def get_form(self):
-        msg = self.get_content("pages/index.html")
-        print(msg)
-        self.response_200(msg)
-
-    def response_200(self, msg):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-        if isinstance(msg, str):
-            msg = msg.encode()
-        self.wfile.write(msg)
-
-    @staticmethod
-    def get_content(path):
-        file = PROJECT_DIR/ path
-        with open(file, "r", encoding="utf-8") as fp:
-            content = fp.read()
-        return content
-
-with socketserver.TCPServer(("", PORT), MyHandler) as httpd:
-    print("it works")
-
-    httpd.serve_forever()
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 
+@app.route("/post", methods=['POST', 'GET'])
+def form():
+    if request.method == 'POST':
+        name = request.form['name']
+        print(name)
+        email = request.form['email']
+        msg = request.form['message']
+        mail_message = Message("Order", recipients=[email])
+        mail_message.body = f'Дороу,{name}, спасибо за заказ'
+        mail.send(mail_message)
+        return render_template('thanks.html', name=name)
+
+
+if __name__ == '__main__':
+    app.run()
