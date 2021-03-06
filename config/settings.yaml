@@ -1,0 +1,4 @@
+development:
+  FLASK_APP: src/srv.py
+  SECRET_KEY: ''
+  MAIL_PASSWORD: ''

@@ -1,5 +1,5 @@
 from flask import Flask, url_for, render_template, request
-
+from dynaconf import settings as _ds
 from flask_mail import Mail, Message
 
 app = Flask(__name__)
@@ -7,9 +7,11 @@ app = Flask(__name__)
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'spacexxx47@gmail.com'  # введите свой адрес электронной почты здесь
-app.config['MAIL_DEFAULT_SENDER'] = 'spacexxx47@gmail.com'  # и здесь
-app.config['MAIL_PASSWORD'] = 'EADSbMFFD6GwBdM'  # введите пароль
+app.config['MAIL_USERNAME'] = 'spacexxx47@gmail.com'
+app.config['MAIL_DEFAULT_SENDER'] = 'spacexxx47@gmail.com'
+app.config['MAIL_PASSWORD'] = _ds.MAIL_PASSWORD
+app.config['CSRF_ENABLED'] = True
+app.config['SECRET_KEY'] = _ds.SECRET_KEY
 
 mail = Mail(app)
 
