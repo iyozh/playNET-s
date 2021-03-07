@@ -6,17 +6,30 @@
       <link rel="stylesheet" type="text/css" href="static/main.css">
    </head>
    <body>
-   <form class="decor" action="/post" method="post">
+   <div id="envelope" class="envelope">
+   <form class="decor" action="#" method="post">
+      <a class="close-btn" href="javascript:void(0)" onclick = "document.getElementById('envelope').style.display='none';document.getElementById('fade').style.display='none'">Закрыть</a>
       <div class="form-left-decoration"></div>
          <div class="form-right-decoration"></div>
             <div class="circle"></div>
                <div class="form-inner">
                   <h3>Оставить заявку</h3>
-                  <input name="name" id="name" type="text" placeholder="Имя">
-                  <input name="email" id="email" type="email" placeholder="Email">
-                  <textarea name="message" id="message" placeholder="Сообщение..." rows="3"></textarea>
+                  {% for field in form if field.name != 'csrf_token' %}
+                       <div>
+                         {{ field.label() }}
+                         {{ field() }}
+                           {% for error in field.errors %}
+                              <div class="error">{{ error }}</div>
+                           {% endfor %}
+                        </div>
+                  {% endfor %}
                   <input type="submit" value="Отправить">
-      </div>
+               </div>
    </form>
+   </div>
+      <div class="button-contact">
+         <a class="sliding-button" href = "javascript:void(0)" onclick = "document.getElementById('envelope').style.display='block';document.getElementById('fade').style.display='block'">Оставить заявку</a>
+      </div>
+      <div id="fade" class="black-overlay"></div>
    </body>
 </html>
