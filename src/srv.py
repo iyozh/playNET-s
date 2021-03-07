@@ -2,7 +2,7 @@ from flask import Flask, url_for, render_template, request
 from dynaconf import settings as _ds
 from flask_mail import Mail, Message
 
-from form import FeedBackForm
+from feedback_form import FeedBackForm
 
 app = Flask(__name__)
 
