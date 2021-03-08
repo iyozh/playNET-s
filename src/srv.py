@@ -1,7 +1,6 @@
 from flask import Flask, url_for, render_template, request
 from dynaconf import settings as _ds
 from flask_mail import Mail, Message
-
 from src.feedback_form import FeedBackForm
 
 app = Flask(__name__)
@@ -23,7 +22,7 @@ def index():
     feedback = FeedBackForm()
     if request.method == "POST":
         form()
-    return render_template("index.html", form=feedback)
+    return render_template("contact/index.html", form=feedback)
 
 
 # @app.route("/post", methods=["POST", "GET"])

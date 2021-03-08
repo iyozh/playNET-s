@@ -1,5 +1,5 @@
 body {
-    background: url('/static/bg2.jpg');
+    background: url('/static/contact/bg2.jpg');
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
@@ -160,12 +160,12 @@ body {
     height: 31px;
     display: block;
     cursor: pointer;/* для случая применения отличных от <a> тегов */
-    background: url('/static/close.png');
+    background: url('/static/contact/close.png');
     text-indent: -4999px;
     margin-left: 10px;
 }
 .close-btn:hover{
-        background: url('/static/close-hover.png');
+        background: url('/static/contact/close-hover.png');
 }
 
 .envelope, .envelope-2 {
