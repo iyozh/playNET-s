@@ -30,7 +30,6 @@ def index():
 def form():
     if request.method == "POST":
         name = request.form["name"]
-        print(name)
         email = request.form["email"]
         msg = request.form["message"]
         mail_message = Message("Order", recipients=[email])
